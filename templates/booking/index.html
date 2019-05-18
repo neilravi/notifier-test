@@ -1,0 +1,70 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css"/>
+<!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css"/>
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Total</th>
+      <th scope="col">Note</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for book in booking%}
+    <tr>
+      <th scope="row">{{booking.name}}</th>
+      <td>{{booking.date}}</td>
+      <td>{{booking.number_of_people}}</td>
+      <td>@{{booking.note}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+    <script src="{% static "/js/websocketbridge.js" %}"></script>
+<script type="text/javascript">
+     document.addEventListener('DOMContentLoaded', function() {
+         const webSocketBridge = new channels.WebSocketBridge();
+         const nl = document.querySelector("#notifylist");
+         webSocketBridge.connect('/ws/booking/');
+         webSocketBridge.listen(function(action, stream) {
+             console.log("RESPONSE:", action);
+             if(action.event == "New Booking") {
+                 var one = action.event;
+                 var two = " By";
+                 var three = " "+action.username;
+                 var four = " "+action.on;
+                 var five = " at:"
+                 var six = " "+action.at;
+                 joined = one + two + three + four + five + six;
+                 alertify.set('notifier','position', 'top-right');
+                 alertify.success(joined);       
+             }
+         })
+  
+         document.ws = webSocketBridge; /* for debugging */
+     })
+        
+</script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
