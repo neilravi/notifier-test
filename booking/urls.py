@@ -21,4 +21,6 @@ app_name = 'booking'
 
 urlpatterns = [
     path('list/', views.showBooking, name="booking-list"),
+    path('show-notification/<int:count>/', views.saveBooking, name="booking-save"),
+
 ]
