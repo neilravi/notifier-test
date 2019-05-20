@@ -75,7 +75,7 @@ ASGI_APPLICATION = 'notifications.routing.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ['P_DB_NAME'],
@@ -84,7 +84,7 @@ DATABASES = {
         # 'PORT': os.environ['P_DB_PORT'],
         'HOST': os.environ['P_DB_HOST']
     }
-}
+}'''
 
 
 # Password validation
