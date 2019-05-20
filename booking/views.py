@@ -4,12 +4,13 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
-from booking.models import BookingModel
+
+#from booking.models import BookingModel
 # Create your views here.
 
 
 def showBooking(request):
-	booking = BookingModel.objects.all()
+	booking = {"name":"ravi", "date":"2019-05-17", "number_of_people":2, "note":"Absdjjsdjdj"}
 	return	render(request, 'booking/index.html', {'booking':booking})
 
 

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class BookingModel(models.Model):
+"""class BookingModel(models.Model):
 	user = models.CharField(max_length=50)
 	date = models.DateField(null=False, blank=False)
 	number_of_people = models.IntegerField(blank=True, null=True)
@@ -11,4 +11,4 @@ class BookingModel(models.Model):
 	def __str__(self):
 		return self.user
 	class Meta:
-		db_table = 'booking'
+		db_table = 'booking'"""
